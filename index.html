@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pesquisa Médica | Cirurgia sem sangue</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Pesquisa de Artigos Médicos</h1>
+      <p>
+        Intervenções cirúrgicas sem uso de sangue ou derivados, com prioridade para revistas de alta reputação.
+      </p>
+    </header>
+
+    <section class="card">
+      <form id="search-form" class="stack">
+        <label for="topic">Tema / Palavra-chave</label>
+        <input id="topic" type="text" placeholder="Ex.: cirurgia cardíaca, ortopedia, oncologia" required />
+        <button type="submit">Pesquisar artigos</button>
+      </form>
+    </section>
+
+    <section id="feedback" aria-live="polite"></section>
+
+    <section id="results-card" class="card hidden">
+      <h2>Resultados</h2>
+      <ul id="results-list" class="results-list"></ul>
+    </section>
+
+    <section id="email-card" class="card hidden">
+      <h2>Enviar resultados por e-mail</h2>
+      <p class="muted">No GitHub Pages (site estático), o envio é feito abrindo o seu cliente de e-mail com mensagem pré-preenchida.</p>
+      <form id="email-form" class="stack">
+        <label for="to-email">E-mail de destino</label>
+        <input id="to-email" type="email" placeholder="nome@exemplo.com" required />
+        <a id="mailto-link" class="button-like" href="#">Gerar e-mail com resultados</a>
+      </form>
+    </section>
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
