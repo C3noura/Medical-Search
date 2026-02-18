@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pesquisa Médica - Cirurgia Sem Sangue</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Pesquisa de Artigos Médicos</h1>
+      <p>Intervenções cirúrgicas sem uso de sangue ou derivados, com foco em revistas de alta reputação.</p>
+    </header>
+
+    <section class="card">
+      <form method="post" class="search-form">
+        <input type="hidden" name="action" value="search" />
+        <label for="topic">Tema / Palavra-chave</label>
+        <input id="topic" name="topic" type="text" placeholder="Ex.: cirurgia cardíaca, ortopedia, oncologia" value="{{ topic }}" required />
+        <button type="submit">Pesquisar</button>
+      </form>
+    </section>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <section class="messages">
+          {% for category, message in messages %}
+            <div class="message {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </section>
+      {% endif %}
+    {% endwith %}
+
+    {% if articles %}
+      <section class="card">
+        <h2>Resultados</h2>
+        <ul class="results-list">
+          {% for article in articles %}
+            <li>
+              <h3>{{ article.title }}</h3>
+              <p><strong>Autores:</strong> {{ article.authors }}</p>
+              <p><strong>Revista:</strong> {{ article.journal }} ({{ article.year }})</p>
+              <p>{{ article.abstract }}</p>
+              {% if article.url %}
+                <a href="{{ article.url }}" target="_blank" rel="noopener noreferrer">Abrir artigo</a>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>Enviar resultados por e-mail</h2>
+        <form method="post" class="email-form">
+          <input type="hidden" name="action" value="send_email" />
+          <input type="hidden" name="topic" value="{{ topic }}" />
+          <input type="hidden" name="articles_json" value='{{ articles_json|safe }}' />
+          <label for="to_email">E-mail de destino</label>
+          <input id="to_email" name="to_email" type="email" placeholder="nome@exemplo.com" required />
+          <button type="submit">Enviar resultados</button>
+        </form>
+      </section>
+    {% endif %}
+  </main>
+</body>
+</html>
